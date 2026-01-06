@@ -12,6 +12,8 @@ const authRouter = require("./routes/auth");
 
  app.use("/auth", authRouter);
 
+ const PORT = process.env.PORT || 5000;
+
 connectDB().then(() => {
     console.log("Database connect successfully");
     app.listen(5000,() =>{
