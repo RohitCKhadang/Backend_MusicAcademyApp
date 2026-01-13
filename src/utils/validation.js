@@ -13,6 +13,20 @@ const validateSignUpData = (req) =>{
     }
 };
 
+ const validateCourseData = (req) => {
+  const { courseName, isActive } = req.body;
+
+  if (!courseName || courseName.length < 4 || courseName.length > 100) {
+    throw new Error("Course name is not valid");
+  }
+
+  if (typeof isActive !== "boolean") {
+    throw new Error("isActive must be true or false");
+  }
+};
+
+
 module.exports ={
-    validateSignUpData
+    validateSignUpData,
+    validateCourseData
 }

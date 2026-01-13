@@ -7,12 +7,20 @@ const userSchema = new mongoose.Schema({
      
     firstName: {
         type: String,
-        require:true,
+        required:true,
         minLength:4,
         maxLength:50,
     },
     lastName: {
         type: String,
+        required:true,
+        minLength:4,
+        maxLength:50,
+    },
+    address:{
+        type:String,
+        maxLength:100,
+        trim:true,    
     },
     emailId: {
         type:String,
@@ -30,7 +38,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type:String,
-        require:true,
+        required:true,        
         validate(value){
             if(!validator.isStrongPassword(value)){
                
@@ -38,16 +46,43 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    mobileNo:{
+        type:Number,
+
+    },
+    dob:{
+        type:Date,
+    },
     age:{
         type:Number,
     },
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: function () {
+        return this.role === "student";
+      }
+    },
+    role:{
+        type:String,
+        required:true,
+        validate(value){
+            if(!["student","admin"].includes(value)){
+                throw new Error("Role data is not valid")
+                }
+        }
+    },
     gender:{
         type:String,
+        required:true,
         validate(value){
             if(!["male","female","others"].includes(value)){
                 throw new Error("Gender data is not valid")
             }
         }
+    },
+    courseFees:{
+        type:Number
     },
     photoUrl:{
         type:String,
