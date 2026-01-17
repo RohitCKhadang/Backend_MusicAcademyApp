@@ -170,7 +170,7 @@ authRouter.get("/userView", userAuth, async(req,res) => {
     }
 
     const users = await User.find()
-    .populate("courserId", "courseName")
+    .populate("courseId", "courseName")
     .select("-password");  
     res.status(200).json({
       message:"All users fetched successfully",
